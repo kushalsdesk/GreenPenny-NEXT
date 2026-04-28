@@ -22,16 +22,9 @@ export default function LandingNavbar() {
         <span className="font-bold text-lg tracking-tight text-white hidden sm:block">GreenPenny</span>
       </div>
 
-      {/* Links Island */}
-      <div className="pointer-events-auto hidden md:flex items-center gap-8 text-sm font-medium text-slate-300 bg-navy-light/80 backdrop-blur-xl border border-white/10 rounded-full px-8 py-3.5 shadow-2xl">
-        <a href="#features" className="hover:text-white transition-colors">Features</a>
-        <a href="#why" className="hover:text-white transition-colors">Why Us</a>
-        <a href="#testimonials" className="hover:text-white transition-colors">Testimonials</a>
-      </div>
-
       {/* CTA Island */}
       <div className="pointer-events-auto flex items-center bg-navy-light/80 backdrop-blur-xl border border-white/10 rounded-full p-1.5 shadow-2xl">
-        <button 
+        <button
           onClick={handleSignIn}
           className="px-6 py-2.5 text-sm font-bold bg-primary text-navy rounded-full hover:bg-primary-dark transition-colors"
         >
