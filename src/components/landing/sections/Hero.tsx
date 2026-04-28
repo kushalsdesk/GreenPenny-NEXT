@@ -1,13 +1,11 @@
 "use client";
 import { motion } from 'motion/react';
-import CurrencyFloats from '../CurrencyFloats';
 import FloatingCard from '../FloatingCard';
 
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-24 pb-12 px-6 overflow-hidden">
-      <CurrencyFloats />
-      
+
       <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center relative z-10">
         <div className="text-center lg:text-left">
           <motion.div
@@ -19,14 +17,14 @@ export default function Hero() {
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
             GreenPenny 2.0 is live
           </motion.div>
-          
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight leading-[1.1] mb-6">
-              Wealth management, <br className="hidden md:block"/>
+              Wealth management, <br className="hidden md:block" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-300">beautifully engineered.</span>
             </h1>
           </motion.div>
