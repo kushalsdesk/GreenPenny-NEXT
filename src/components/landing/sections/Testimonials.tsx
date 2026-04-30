@@ -1,29 +1,29 @@
 export default function Testimonials() {
   const reviews = [
     {
-      body: "GreenPenny completely changed how I look at my spending. For the first time, I actually understand where my money is going without managing complex spreadsheets.",
-      author: "Sarah L.",
-      role: "Freelance Designer",
-      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+      body: "I had Notion, Figma, Linear, Copilot, and two streaming services running simultaneously. GreenPenny showed me I was spending ₹5,400/month on subscriptions I'd forgotten to audit.",
+      author: "Rohan M.",
+      role: "Software Engineer, Bangalore",
+      avatar: "https://ui-avatars.com/api/?name=Rohan+M&background=1C2D42&color=10B981&size=256"
     },
     {
-      body: "The insights provided by the AI categorization are shockingly accurate. It correctly tagged my obscure local coffee shops and gym memberships instantly.",
-      author: "James T.",
-      role: "Software Engineer",
-      avatar: "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+      body: "Three flatmates, shared rent, groceries, electricity every month. Splitwise felt like overkill. This is exactly the right size — clean, no noise, just who owes what.",
+      author: "Priya S.",
+      role: "Product Designer, Mumbai",
+      avatar: "https://ui-avatars.com/api/?name=Priya+S&background=1C2D42&color=10B981&size=256"
     },
     {
-      body: "I've tried every budgeting app on the market. GreenPenny's interface is by far the cleanest and fastest. The multi-currency support is a game changer for my travels.",
-      author: "Elena R.",
-      role: "Digital Nomad",
-      avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+      body: "Got the renewal reminder for my Adobe subscription 3 days before it hit. Cancelled it. That one email saved me ₹4,500. The app paid for itself before I even paid for it.",
+      author: "Arjun K.",
+      role: "Freelance Consultant, Delhi",
+      avatar: "https://ui-avatars.com/api/?name=Arjun+K&background=1C2D42&color=10B981&size=256"
     }
   ];
 
   return (
     <section id="testimonials" className="py-24 px-6 relative">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
-      
+
       <div className="max-w-7xl mx-auto">
         <h2 className="text-center text-4xl md:text-5xl font-bold text-white mb-16 tracking-tight">Loved by modern professionals.</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

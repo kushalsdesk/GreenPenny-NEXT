@@ -15,7 +15,7 @@ export default function Hero() {
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-widest mb-6"
           >
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            GreenPenny 2.0 is live
+            Splits · Subscriptions · Transactions
           </motion.div>
 
           <motion.div
@@ -24,8 +24,8 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight leading-[1.1] mb-6">
-              Wealth management, <br className="hidden md:block" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-300">beautifully engineered.</span>
+              Your money, your crew, your subscriptions. <br className="hidden md:block" />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-300">Finally, all in one place.</span>
             </h1>
           </motion.div>
 
@@ -35,7 +35,7 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-lg md:text-xl text-slate-400 mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed"
           >
-            Connect your accounts, track expenses, and grow your net worth with AI-driven insights in a single, secure dashboard.
+            Split bills without the awkward reminders. Track every renewal before it hits. Log your spends in seconds — no bank connection ever required.
           </motion.p>
 
           <motion.div
@@ -45,10 +45,13 @@ export default function Hero() {
             className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start"
           >
             <button className="w-full sm:w-auto px-8 py-4 bg-primary text-navy font-bold rounded-xl hover:bg-primary-dark transition-colors shadow-[0_0_20px_rgba(16,185,129,0.3)]">
-              Open Free Account
+              Start for Free
             </button>
-            <button className="w-full sm:w-auto px-8 py-4 bg-white/5 text-white font-bold rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
-              View Interactive Demo
+            <button
+              onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
+              className="w-full sm:w-auto px-8 py-4 bg-white/5 text-white font-bold rounded-xl border border-white/10 hover:bg-white/10 transition-colors"
+            >
+              See How It Works
             </button>
           </motion.div>
         </div>

@@ -12,7 +12,7 @@ export default function Footer() {
             <span className="font-semibold text-xl tracking-tight text-white">GreenPenny</span>
           </div>
           <p className="text-slate-400 max-w-md leading-relaxed text-sm">
-            Building the next generation of financial tools. We believe everyone deserves absolute clarity over their net worth and cash flow.
+            We believe financial clarity shouldn't require handing over your bank credentials. Track splits, subscriptions, and spends — privately.
           </p>
           <div className="flex items-center gap-4 mt-6">
             <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary transition-colors">
@@ -31,7 +31,7 @@ export default function Footer() {
           <h4 className="text-white font-bold mb-6 uppercase tracking-wider text-xs">Product</h4>
           <ul className="space-y-4 text-sm text-slate-400">
             <li><a href="#" className="hover:text-primary transition-colors">Features</a></li>
-            <li><a href="#" className="hover:text-primary transition-colors">Security</a></li>
+            <li><a href="#" className="hover:text-primary transition-colors">How It Works</a></li>
             <li><a href="#" className="hover:text-primary transition-colors">Pricing</a></li>
             <li><a href="#" className="hover:text-primary transition-colors">Changelog</a></li>
           </ul>

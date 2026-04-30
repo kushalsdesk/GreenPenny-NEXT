@@ -1,23 +1,23 @@
 "use client";
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
-import { ArrowLeftRight, CreditCard, PieChart } from 'lucide-react';
+import { Users, Bell, Zap } from 'lucide-react';
 
 const featureItems = [
   {
-    title: 'Track Multi-Currency',
-    desc: 'Seamlessly hold and track balances in USD, EUR, GBP, and JPY. Real-time conversion rates baked in.',
-    icon: ArrowLeftRight,
+    title: 'Split Without the Drama',
+    desc: 'Add a group expense, GreenPenny calculates who owes what using the minimum number of transfers. No more chain payments. Mark settled, move on.',
+    icon: Users,
   },
   {
-    title: 'Cards Hub',
-    desc: 'Manage all your credit and debit cards from a single view. Spot fraudulent charges the second they happen.',
-    icon: CreditCard,
+    title: 'Know What\'s Coming',
+    desc: 'Log every recurring cost once. Get email reminders 3 days before renewal. See your total monthly committed spend in a single number before the month begins.',
+    icon: Bell,
   },
   {
-    title: 'Budgeting Goals',
-    desc: 'Set custom spending limits per category. Watch your progress rings fill up as the month progresses.',
-    icon: PieChart,
+    title: 'Log It in Seconds',
+    desc: 'Quick manual spend entry with auto-suggested categories. No bank connection, no OAuth, no anxiety. Just your data, yours alone.',
+    icon: Zap,
   },
 ];
 
@@ -57,13 +57,13 @@ export default function FeatureCarousel() {
         {/* Right side: sticky visuals (Hidden on mobile) */}
         <div className="hidden md:flex flex-1 sticky top-32 h-[75vh] items-center justify-center relative">
           <motion.div style={{ opacity: op1 }} className="absolute inset-0 flex items-center justify-center">
-            <MultiCurrencyViz />
+            <SplitsViz />
           </motion.div>
           <motion.div style={{ opacity: op2 }} className="absolute inset-0 flex items-center justify-center">
-            <CardsHubViz />
+            <SubscriptionsViz />
           </motion.div>
           <motion.div style={{ opacity: op3 }} className="absolute inset-0 flex items-center justify-center">
-            <BudgetViz />
+            <TransactionsViz />
           </motion.div>
         </div>
       </div>
@@ -71,140 +71,163 @@ export default function FeatureCarousel() {
   );
 }
 
-const MultiCurrencyViz = () => {
+const SplitsViz = () => {
   return (
     <svg viewBox="0 0 400 400" className="w-full h-full max-w-lg drop-shadow-2xl">
-      <motion.circle cx="200" cy="200" r="140" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="5 15" className="text-white/20"
-        animate={{ rotate: 360 }} transition={{ duration: 40, ease: "linear", repeat: Infinity }} style={{ transformOrigin: "200px 200px" }} />
-      <motion.circle cx="200" cy="200" r="100" fill="none" stroke="currentColor" strokeWidth="1" className="text-primary/30"
-        animate={{ rotate: -360 }} transition={{ duration: 30, ease: "linear", repeat: Infinity }} style={{ transformOrigin: "200px 200px" }} />
-
-      {/* Currencies jumping around */}
-      <motion.g animate={{ y: [-15, 15, -15] }} transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}>
-        <circle cx="120" cy="90" r="30" fill="#2C405A" stroke="#3D5A80" strokeWidth="2" />
-        <text x="120" y="100" fill="#80B8FF" fontSize="28" textAnchor="middle" fontWeight="bold">€</text>
+      {/* Avatars */}
+      <motion.g animate={{ y: [-5, 5, -5] }} transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}>
+        <circle cx="200" cy="100" r="30" fill="#1C2D42" stroke="#3D5A80" strokeWidth="2" />
+        <text x="200" y="110" fill="#80B8FF" fontSize="24" textAnchor="middle" fontWeight="bold">R</text>
       </motion.g>
 
-      <motion.g animate={{ y: [10, -20, 10] }} transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}>
-        <circle cx="80" cy="220" r="40" fill="#1C2D42" stroke="#A8F8A8" strokeWidth="2" />
-        <text x="80" y="232" fill="#A8F8A8" fontSize="36" textAnchor="middle" fontWeight="bold">$</text>
+      <motion.g animate={{ y: [5, -5, 5] }} transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}>
+        <circle cx="100" cy="270" r="30" fill="#1C2D42" stroke="#A8F8A8" strokeWidth="2" />
+        <text x="100" y="280" fill="#A8F8A8" fontSize="24" textAnchor="middle" fontWeight="bold">P</text>
       </motion.g>
 
-      <motion.g animate={{ y: [-10, 20, -10] }} transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}>
-        <circle cx="280" cy="120" r="36" fill="#2C405A" stroke="#FFD880" strokeWidth="2" />
-        <text x="280" y="132" fill="#FFD880" fontSize="32" textAnchor="middle" fontWeight="bold">£</text>
+      <motion.g animate={{ y: [-3, 3, -3] }} transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}>
+        <circle cx="300" cy="270" r="30" fill="#1C2D42" stroke="#FFD880" strokeWidth="2" />
+        <text x="300" y="280" fill="#FFD880" fontSize="24" textAnchor="middle" fontWeight="bold">A</text>
       </motion.g>
 
-      <motion.g animate={{ y: [15, -15, 15] }} transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}>
-        <circle cx="300" cy="260" r="30" fill="#1C2D42" stroke="#FF8080" strokeWidth="2" />
-        <text x="300" y="270" fill="#FF8080" fontSize="28" textAnchor="middle" fontWeight="bold">¥</text>
+      {/* Initial complex arrows */}
+      <motion.g
+        initial={{ opacity: 1 }}
+        animate={{ opacity: [1, 1, 0, 0, 1] }}
+        transition={{ duration: 8, repeat: Infinity, times: [0, 0.4, 0.5, 0.9, 1] }}
+      >
+        {/* Arrow from P to R */}
+        <path d="M 115 245 L 180 135" stroke="#4B6A68" strokeWidth="3" strokeDasharray="5 5" />
+        {/* Arrow from A to R */}
+        <path d="M 285 245 L 220 135" stroke="#4B6A68" strokeWidth="3" strokeDasharray="5 5" />
+        {/* Arrow from P to A */}
+        <path d="M 140 270 L 260 270" stroke="#4B6A68" strokeWidth="3" strokeDasharray="5 5" />
       </motion.g>
 
-      {/* Center hub */}
-      <motion.circle cx="200" cy="200" r="50" fill="#1C2D42" stroke="#4B6A68" strokeWidth="4"
-        animate={{ scale: [1, 1.05, 1] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }} />
-      <motion.g animate={{ rotate: [0, 180, 360] }} transition={{ duration: 10, repeat: Infinity, ease: "linear" }} style={{ transformOrigin: "200px 200px" }}>
-        <path d="M 185 185 L 215 215 M 215 185 L 185 215" stroke="#A8F8A8" strokeWidth="6" strokeLinecap="round" />
+      {/* Simplified arrows */}
+      <motion.g
+        initial={{ opacity: 0 }}
+        animate={{ opacity: [0, 0, 1, 1, 0] }}
+        transition={{ duration: 8, repeat: Infinity, times: [0, 0.4, 0.5, 0.9, 1] }}
+      >
+        {/* Arrow from P to R directly */}
+        <path d="M 115 245 L 180 135" stroke="#10b981" strokeWidth="6" strokeLinecap="round" />
+        <polygon points="180,135 170,145 185,150" fill="#10b981" transform="rotate(-30 180 135)" />
+
+        {/* Arrow from A to R directly */}
+        <path d="M 285 245 L 220 135" stroke="#10b981" strokeWidth="6" strokeLinecap="round" />
+        <polygon points="220,135 215,150 230,145" fill="#10b981" transform="rotate(30 220 135)" />
+
+        <rect x="110" y="170" width="60" height="24" rx="12" fill="#1C2D42" stroke="#10b981" strokeWidth="2" />
+        <text x="140" y="186" fill="#10b981" fontSize="12" textAnchor="middle" fontWeight="bold">₹2400</text>
+
+        <rect x="230" y="170" width="60" height="24" rx="12" fill="#1C2D42" stroke="#10b981" strokeWidth="2" />
+        <text x="260" y="186" fill="#10b981" fontSize="12" textAnchor="middle" fontWeight="bold">₹1200</text>
+      </motion.g>
+
+      {/* Simplified Badge */}
+      <motion.g
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: [0, 0, 1, 1, 0], scale: [0.8, 0.8, 1, 1, 0.8] }}
+        transition={{ duration: 8, repeat: Infinity, times: [0, 0.4, 0.5, 0.9, 1] }}
+      >
+        <rect x="140" y="320" width="120" height="30" rx="15" fill="#10b981" opacity="0.2" />
+        <rect x="140" y="320" width="120" height="30" rx="15" fill="none" stroke="#10b981" strokeWidth="2" />
+        <text x="200" y="340" fill="#10b981" fontSize="12" textAnchor="middle" fontWeight="bold">SIMPLIFIED</text>
       </motion.g>
     </svg>
   );
 };
 
-const CardsHubViz = () => {
+const SubscriptionsViz = () => {
   return (
     <svg viewBox="0 0 400 400" className="w-full h-full max-w-lg drop-shadow-2xl">
       <motion.g
-        animate={{ y: [0, -15, 0], rotate: [-15, -12, -15] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        style={{ transformOrigin: "200px 200px" }}
+        animate={{ y: [0, -10, 0] }}
+        transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut" }}
       >
-        <rect x="80" y="160" width="240" height="150" rx="16" fill="#1C2D42" stroke="#2C405A" strokeWidth="4" />
-        <rect x="110" y="190" width="40" height="30" rx="4" fill="#3D5A80" />
-        <circle cx="280" cy="205" r="15" fill="#3D5A80" opacity="0.5" />
-        <circle cx="260" cy="205" r="15" fill="#3D5A80" opacity="0.7" />
-        <line x1="110" y1="250" x2="220" y2="250" stroke="#3D5A80" strokeWidth="8" strokeLinecap="round" />
-        <line x1="110" y1="270" x2="180" y2="270" stroke="#3D5A80" strokeWidth="8" strokeLinecap="round" />
+        <rect x="80" y="220" width="240" height="70" rx="16" fill="#1C2D42" stroke="#2C405A" strokeWidth="2" />
+        <circle cx="120" cy="255" r="15" fill="#FF8080" opacity="0.8" />
+        <rect x="150" y="245" width="80" height="8" rx="4" fill="#3D5A80" />
+        <rect x="150" y="260" width="40" height="6" rx="3" fill="#2C405A" />
+        <text x="300" y="260" fill="#FF8080" fontSize="14" textAnchor="end" fontWeight="bold">Gym</text>
       </motion.g>
 
       <motion.g
-        animate={{ y: [0, 15, 0], rotate: [0, 3, 0] }}
-        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-        style={{ transformOrigin: "200px 200px" }}
+        animate={{ y: [0, 8, 0] }}
+        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
       >
-        <rect x="100" y="110" width="240" height="150" rx="16" fill="#2C405A" stroke="#3D5A80" strokeWidth="4" />
-        <rect x="130" y="140" width="40" height="30" rx="4" fill="#80B8FF" opacity="0.3" />
-        <circle cx="300" cy="155" r="15" fill="#80B8FF" opacity="0.2" />
-        <circle cx="280" cy="155" r="15" fill="#80B8FF" opacity="0.4" />
-        <line x1="130" y1="200" x2="240" y2="200" stroke="#80B8FF" opacity="0.3" strokeWidth="8" strokeLinecap="round" />
-        <line x1="130" y1="220" x2="200" y2="220" stroke="#80B8FF" opacity="0.3" strokeWidth="8" strokeLinecap="round" />
+        <rect x="80" y="140" width="240" height="70" rx="16" fill="#1C2D42" stroke="#2C405A" strokeWidth="2" />
+        <circle cx="120" cy="175" r="15" fill="#A8F8A8" opacity="0.8" />
+        <rect x="150" y="165" width="70" height="8" rx="4" fill="#3D5A80" />
+        <rect x="150" y="180" width="50" height="6" rx="3" fill="#2C405A" />
+        <text x="300" y="180" fill="#A8F8A8" fontSize="14" textAnchor="end" fontWeight="bold">Spotify</text>
       </motion.g>
 
       <motion.g
-        animate={{ y: [-10, 10, -10], rotate: [12, 16, 12] }}
-        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        style={{ transformOrigin: "200px 200px" }}
+        animate={{ y: [-5, 5, -5] }}
+        transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
       >
-        <rect x="120" y="170" width="240" height="150" rx="16" fill="#A8F8A8" stroke="#7FE07F" strokeWidth="4" />
-        <rect x="150" y="200" width="40" height="30" rx="4" fill="#1C2D42" opacity="0.4" />
-        <circle cx="320" cy="215" r="15" fill="#1C2D42" opacity="0.3" />
-        <circle cx="300" cy="215" r="15" fill="#1C2D42" opacity="0.5" />
-        <line x1="150" y1="260" x2="260" y2="260" stroke="#1C2D42" opacity="0.4" strokeWidth="8" strokeLinecap="round" />
-        <line x1="150" y1="280" x2="220" y2="280" stroke="#1C2D42" opacity="0.4" strokeWidth="8" strokeLinecap="round" />
+        <rect x="80" y="60" width="240" height="70" rx="16" fill="#1C2D42" stroke="#80B8FF" strokeWidth="2" />
+        <circle cx="120" cy="95" r="15" fill="#80B8FF" opacity="0.8" />
+        <rect x="150" y="85" width="90" height="8" rx="4" fill="#3D5A80" />
+        <rect x="150" y="100" width="60" height="6" rx="3" fill="#2C405A" />
+        <text x="300" y="100" fill="#80B8FF" fontSize="14" textAnchor="end" fontWeight="bold">Hotstar</text>
+      </motion.g>
+
+      {/* Reminder Badge floating near top */}
+      <motion.g
+        animate={{ y: [0, -10, 0] }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+        className="transform origin-center"
+      >
+        <rect x="180" y="40" width="160" height="36" rx="18" fill="#2C405A" stroke="#10b981" strokeWidth="2" />
+        <circle cx="200" cy="58" r="4" fill="#10b981" />
+        <motion.circle cx="200" cy="58" r="4" fill="none" stroke="#10b981" strokeWidth="2" animate={{ scale: [1, 2.5], opacity: [1, 0] }} transition={{ duration: 1.5, repeat: Infinity }} />
+        <text x="215" y="62" fill="#10b981" fontSize="12" fontWeight="bold">Renews in 3 days</text>
       </motion.g>
     </svg>
   )
 }
 
-const BudgetViz = () => {
+const TransactionsViz = () => {
   return (
     <svg viewBox="0 0 400 400" className="w-full h-full max-w-lg drop-shadow-2xl">
-      {/* Center Text */}
-      <motion.text x="200" y="210" fill="white" fontSize="48" fontWeight="bold" textAnchor="middle" animate={{ opacity: [0.7, 1, 0.7] }} transition={{ duration: 3, repeat: Infinity }}>
-        75%
-      </motion.text>
-      <text x="200" y="240" fill="#80B8FF" fontSize="16" fontWeight="bold" textAnchor="middle" letterSpacing="2">
-        BUDGET SPENT
-      </text>
+      <rect x="60" y="60" width="280" height="300" rx="24" fill="#1C2D42" stroke="#2C405A" strokeWidth="4" />
 
-      {/* Background Ring */}
-      <circle cx="200" cy="200" r="140" fill="none" stroke="#1C2D42" strokeWidth="32" strokeLinecap="round" />
+      <text x="90" y="110" fill="#80B8FF" fontSize="14" fontWeight="bold">TODAY</text>
+      <line x1="90" y1="125" x2="310" y2="125" stroke="#3D5A80" strokeWidth="2" strokeDasharray="4 4" />
 
-      {/* Animated Fill Rings */}
-      <motion.circle
-        cx="200" cy="200" r="140" fill="none" stroke="#3D5A80" strokeWidth="32" strokeLinecap="round"
-        strokeDasharray="880"
-        initial={{ strokeDashoffset: 880 }}
-        whileInView={{ strokeDashoffset: 300 }}
-        viewport={{ once: false, margin: "-100px" }}
-        transition={{ duration: 2, ease: "easeOut" }}
-        style={{ transformOrigin: "200px 200px", rotate: -90 }}
-      />
-      <motion.circle
-        cx="200" cy="200" r="140" fill="none" stroke="#A8F8A8" strokeWidth="32" strokeLinecap="round"
-        strokeDasharray="880"
-        initial={{ strokeDashoffset: 880 }}
-        whileInView={{ strokeDashoffset: 600 }}
-        viewport={{ once: false, margin: "-100px" }}
-        transition={{ duration: 2.5, ease: "easeOut", delay: 0.2 }}
-        style={{ transformOrigin: "200px 200px", rotate: -90 }}
-      />
-
-      {/* Floating elements indicating limits or categories */}
-      <motion.g animate={{ y: [0, -10, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>
-        <circle cx="70" cy="120" r="28" fill="#1C2D42" stroke="#3D5A80" strokeWidth="4" />
-        <line x1="60" y1="120" x2="80" y2="120" stroke="#80B8FF" strokeWidth="4" strokeLinecap="round" />
-        <line x1="70" y1="110" x2="70" y2="130" stroke="#80B8FF" strokeWidth="4" strokeLinecap="round" />
+      {/* Chips */}
+      <motion.g initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 0.5, repeat: Infinity, repeatType: 'reverse', repeatDelay: 6 }}>
+        <rect x="90" y="150" width="220" height="40" rx="12" fill="#2C405A" />
+        <circle cx="115" cy="170" r="10" fill="#FFD880" />
+        <text x="140" y="175" fill="white" fontSize="14" fontWeight="500">Food</text>
+        <text x="290" y="175" fill="#FF8080" fontSize="14" fontWeight="bold" textAnchor="end">-₹450</text>
       </motion.g>
 
-      <motion.g animate={{ y: [0, 15, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}>
-        <circle cx="330" cy="160" r="36" fill="#A8F8A8" />
-        <path d="M 315 160 L 325 170 L 345 150" fill="none" stroke="#1C2D42" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+      <motion.g initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 1, repeat: Infinity, repeatType: 'reverse', repeatDelay: 6 }}>
+        <rect x="90" y="200" width="220" height="40" rx="12" fill="#2C405A" />
+        <circle cx="115" cy="220" r="10" fill="#A8F8A8" />
+        <text x="140" y="225" fill="white" fontSize="14" fontWeight="500">Transport</text>
+        <text x="290" y="225" fill="#FF8080" fontSize="14" fontWeight="bold" textAnchor="end">-₹120</text>
       </motion.g>
 
-      <motion.g animate={{ y: [-5, 10, -5], rotate: [0, 10, 0] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}>
-        <circle cx="280" cy="340" r="22" fill="#2C405A" stroke="#FF8080" strokeWidth="3" />
-        <line x1="272" y1="340" x2="288" y2="340" stroke="#FF8080" strokeWidth="4" strokeLinecap="round" />
+      <motion.g initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 1.5, repeat: Infinity, repeatType: 'reverse', repeatDelay: 6 }}>
+        <rect x="90" y="250" width="220" height="40" rx="12" fill="#2C405A" />
+        <circle cx="115" cy="270" r="10" fill="#80B8FF" />
+        <text x="140" y="275" fill="white" fontSize="14" fontWeight="500">Entertainment</text>
+        <text x="290" y="275" fill="#FF8080" fontSize="14" fontWeight="bold" textAnchor="end">-₹800</text>
       </motion.g>
+
+      {/* Running Total */}
+      <motion.g initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 2, repeat: Infinity, repeatType: 'reverse', repeatDelay: 6 }}>
+        <rect x="60" y="310" width="280" height="50" fill="#1C2D42" />
+        <line x1="60" y1="310" x2="340" y2="310" stroke="#3D5A80" strokeWidth="2" />
+        <text x="90" y="340" fill="#80B8FF" fontSize="12" fontWeight="bold">MONTHLY TOTAL</text>
+        <text x="310" y="342" fill="white" fontSize="20" fontWeight="bold" textAnchor="end">₹1,370</text>
+      </motion.g>
+
     </svg>
   )
 }

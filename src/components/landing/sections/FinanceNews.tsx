@@ -7,23 +7,27 @@ export default function FinanceNews() {
           {[...Array(2)].map((_, idx) => (
             <div key={idx} className="flex items-center gap-12">
               <span className="font-mono font-bold tracking-widest text-sm flex items-center gap-2 text-white">
-                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" /> S&P 500 +1.2%
+                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" /> Urban professionals average ₹4,800/month on subscriptions
               </span>
               <span className="font-mono font-bold tracking-widest text-sm text-slate-600">/</span>
               <span className="font-mono font-bold tracking-widest text-sm flex items-center gap-2 text-white">
-                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" /> NASDAQ +2.4%
+                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" /> Most users find 2+ forgotten subscriptions in week one
               </span>
               <span className="font-mono font-bold tracking-widest text-sm text-slate-600">/</span>
               <span className="font-mono font-bold tracking-widest text-sm text-white flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-red-400 animate-pulse" /> DOW -0.5%
+                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" /> Debt simplification cuts settlement steps by up to 60%
               </span>
               <span className="font-mono font-bold tracking-widest text-sm text-slate-600">/</span>
               <span className="font-mono font-bold tracking-widest text-sm flex items-center gap-2 text-white">
-                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" /> BTC +4.8%
+                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" /> 3-day renewal alerts prevent most surprise charges
               </span>
               <span className="font-mono font-bold tracking-widest text-sm text-slate-600">/</span>
               <span className="font-mono font-bold tracking-widest text-sm flex items-center gap-2 text-white">
-                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" /> ETH +6.1%
+                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" /> Average 6 active subscriptions per Indian urban user
+              </span>
+              <span className="font-mono font-bold tracking-widest text-sm text-slate-600">/</span>
+              <span className="font-mono font-bold tracking-widest text-sm flex items-center gap-2 text-white">
+                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" /> Manual tracking increases spend awareness by 40%
               </span>
               <span className="font-mono font-bold tracking-widest text-sm text-slate-600">/</span>
             </div>
