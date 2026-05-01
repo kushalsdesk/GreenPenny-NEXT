@@ -36,7 +36,20 @@ export default function FeatureCarousel() {
   return (
     <section id="features" ref={containerRef} className="relative w-full bg-navy pb-[20vh]">
       <div className="pt-32 pb-16 px-6 max-w-7xl mx-auto text-center">
-        <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">Everything you need, <br className="hidden md:block" /><span className="text-primary">nothing you don't.</span></h2>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-widest mb-6"
+        >
+          <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+          The Ultimate Financial OS
+        </motion.div>
+
+        <h2 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight">
+          Manage your money, <br className="hidden md:block" />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-300">without the anxiety.</span>
+        </h2>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -72,178 +85,242 @@ export default function FeatureCarousel() {
 
         {/* Right side: sticky visuals (Hidden on mobile) */}
         <div className="hidden md:flex flex-1 sticky top-32 h-[75vh] items-center justify-center relative">
-          <motion.div style={{ opacity: op1 }} className="absolute inset-0 flex items-center justify-center">
-            <SplitsViz />
-          </motion.div>
-          <motion.div style={{ opacity: op2 }} className="absolute inset-0 flex items-center justify-center">
-            <SubscriptionsViz />
-          </motion.div>
-          <motion.div style={{ opacity: op3 }} className="absolute inset-0 flex items-center justify-center">
-            <TransactionsViz />
-          </motion.div>
+          <AndroidMockup>
+            <motion.div style={{ opacity: op1 }} className="absolute inset-0 bg-navy">
+              <SplitsUi />
+            </motion.div>
+            <motion.div style={{ opacity: op2 }} className="absolute inset-0 bg-navy">
+              <SubscriptionsUi />
+            </motion.div>
+            <motion.div style={{ opacity: op3 }} className="absolute inset-0 bg-navy">
+              <TransactionsUi />
+            </motion.div>
+          </AndroidMockup>
         </div>
       </div>
     </section>
   );
 }
 
-const SplitsViz = () => {
+const AndroidMockup = ({ children }: { children: React.ReactNode }) => {
   return (
-    <svg viewBox="0 0 400 400" className="w-full h-full max-w-lg drop-shadow-2xl">
-      {/* Avatars */}
-      <motion.g animate={{ y: [-5, 5, -5] }} transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}>
-        <circle cx="200" cy="100" r="30" fill="#1C2D42" stroke="#3D5A80" strokeWidth="2" />
-        <text x="200" y="110" fill="#80B8FF" fontSize="24" textAnchor="middle" fontWeight="bold">R</text>
-      </motion.g>
+    <div className="relative w-[320px] h-[650px] bg-navy rounded-[3rem] border-[10px] border-[#151b23] shadow-[0_0_50px_-15px_rgba(16,185,129,0.3)] overflow-hidden shrink-0 transform-gpu">
+      {/* Top Notch / Camera Area */}
+      <div className="absolute top-0 inset-x-0 h-7 flex justify-center z-50">
+        <div className="w-20 h-6 bg-[#151b23] rounded-b-2xl flex items-center justify-center">
+          <div className="w-2.5 h-2.5 rounded-full bg-slate-900 shadow-inner flex items-center justify-center">
+            <div className="w-1 h-1 rounded-full bg-blue-900/40"></div>
+          </div>
+        </div>
+      </div>
 
-      <motion.g animate={{ y: [5, -5, 5] }} transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}>
-        <circle cx="100" cy="270" r="30" fill="#1C2D42" stroke="#A8F8A8" strokeWidth="2" />
-        <text x="100" y="280" fill="#A8F8A8" fontSize="24" textAnchor="middle" fontWeight="bold">P</text>
-      </motion.g>
+      {/* Inner Screen */}
+      <div className="relative w-full h-full bg-navy flex flex-col z-0">
+        {/* Status bar */}
+        <div className="h-7 w-full flex justify-between items-center px-6 text-[11px] text-white/50 absolute top-0 z-10 bg-gradient-to-b from-black/60 to-transparent font-medium">
+          <span>9:41</span>
+          <div className="flex items-center gap-1.5 opacity-80">
+            <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></svg>
+            <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="22 2 2 22 22 22 22 2" /></svg>
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="7" width="20" height="10" rx="2" ry="2" /><path d="M22 11v2" /></svg>
+          </div>
+        </div>
 
-      <motion.g animate={{ y: [-3, 3, -3] }} transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}>
-        <circle cx="300" cy="270" r="30" fill="#1C2D42" stroke="#FFD880" strokeWidth="2" />
-        <text x="300" y="280" fill="#FFD880" fontSize="24" textAnchor="middle" fontWeight="bold">A</text>
-      </motion.g>
+        {/* Content Area */}
+        <div className="mt-8 mb-12 flex-1 w-full relative">
+          {children}
+        </div>
 
-      {/* Initial complex arrows */}
-      <motion.g
-        initial={{ opacity: 1 }}
-        animate={{ opacity: [1, 1, 0, 0, 1] }}
-        transition={{ duration: 8, repeat: Infinity, times: [0, 0.4, 0.5, 0.9, 1] }}
-      >
-        {/* Arrow from P to R */}
-        <path d="M 115 245 L 180 135" stroke="#4B6A68" strokeWidth="3" strokeDasharray="5 5" />
-        {/* Arrow from A to R */}
-        <path d="M 285 245 L 220 135" stroke="#4B6A68" strokeWidth="3" strokeDasharray="5 5" />
-        {/* Arrow from P to A */}
-        <path d="M 140 270 L 260 270" stroke="#4B6A68" strokeWidth="3" strokeDasharray="5 5" />
-      </motion.g>
-
-      {/* Simplified arrows */}
-      <motion.g
-        initial={{ opacity: 0 }}
-        animate={{ opacity: [0, 0, 1, 1, 0] }}
-        transition={{ duration: 8, repeat: Infinity, times: [0, 0.4, 0.5, 0.9, 1] }}
-      >
-        {/* Arrow from P to R directly */}
-        <path d="M 115 245 L 180 135" stroke="#10b981" strokeWidth="6" strokeLinecap="round" />
-        <polygon points="180,135 170,145 185,150" fill="#10b981" transform="rotate(-30 180 135)" />
-
-        {/* Arrow from A to R directly */}
-        <path d="M 285 245 L 220 135" stroke="#10b981" strokeWidth="6" strokeLinecap="round" />
-        <polygon points="220,135 215,150 230,145" fill="#10b981" transform="rotate(30 220 135)" />
-
-        <rect x="110" y="170" width="60" height="24" rx="12" fill="#1C2D42" stroke="#10b981" strokeWidth="2" />
-        <text x="140" y="186" fill="#10b981" fontSize="12" textAnchor="middle" fontWeight="bold">₹2400</text>
-
-        <rect x="230" y="170" width="60" height="24" rx="12" fill="#1C2D42" stroke="#10b981" strokeWidth="2" />
-        <text x="260" y="186" fill="#10b981" fontSize="12" textAnchor="middle" fontWeight="bold">₹1200</text>
-      </motion.g>
-
-      {/* Simplified Badge */}
-      <motion.g
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: [0, 0, 1, 1, 0], scale: [0.8, 0.8, 1, 1, 0.8] }}
-        transition={{ duration: 8, repeat: Infinity, times: [0, 0.4, 0.5, 0.9, 1] }}
-      >
-        <rect x="140" y="320" width="120" height="30" rx="15" fill="#10b981" opacity="0.2" />
-        <rect x="140" y="320" width="120" height="30" rx="15" fill="none" stroke="#10b981" strokeWidth="2" />
-        <text x="200" y="340" fill="#10b981" fontSize="12" textAnchor="middle" fontWeight="bold">SIMPLIFIED</text>
-      </motion.g>
-    </svg>
-  );
-};
-
-const SubscriptionsViz = () => {
-  return (
-    <svg viewBox="0 0 400 400" className="w-full h-full max-w-lg drop-shadow-2xl">
-      <motion.g
-        animate={{ y: [0, -10, 0] }}
-        transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <rect x="80" y="220" width="240" height="70" rx="16" fill="#1C2D42" stroke="#2C405A" strokeWidth="2" />
-        <circle cx="120" cy="255" r="15" fill="#FF8080" opacity="0.8" />
-        <rect x="150" y="245" width="80" height="8" rx="4" fill="#3D5A80" />
-        <rect x="150" y="260" width="40" height="6" rx="3" fill="#2C405A" />
-        <text x="300" y="260" fill="#FF8080" fontSize="14" textAnchor="end" fontWeight="bold">Gym</text>
-      </motion.g>
-
-      <motion.g
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-      >
-        <rect x="80" y="140" width="240" height="70" rx="16" fill="#1C2D42" stroke="#2C405A" strokeWidth="2" />
-        <circle cx="120" cy="175" r="15" fill="#A8F8A8" opacity="0.8" />
-        <rect x="150" y="165" width="70" height="8" rx="4" fill="#3D5A80" />
-        <rect x="150" y="180" width="50" height="6" rx="3" fill="#2C405A" />
-        <text x="300" y="180" fill="#A8F8A8" fontSize="14" textAnchor="end" fontWeight="bold">Spotify</text>
-      </motion.g>
-
-      <motion.g
-        animate={{ y: [-5, 5, -5] }}
-        transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-      >
-        <rect x="80" y="60" width="240" height="70" rx="16" fill="#1C2D42" stroke="#80B8FF" strokeWidth="2" />
-        <circle cx="120" cy="95" r="15" fill="#80B8FF" opacity="0.8" />
-        <rect x="150" y="85" width="90" height="8" rx="4" fill="#3D5A80" />
-        <rect x="150" y="100" width="60" height="6" rx="3" fill="#2C405A" />
-        <text x="300" y="100" fill="#80B8FF" fontSize="14" textAnchor="end" fontWeight="bold">Hotstar</text>
-      </motion.g>
-
-      {/* Reminder Badge floating near top */}
-      <motion.g
-        animate={{ y: [0, -10, 0] }}
-        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-        className="transform origin-center"
-      >
-        <rect x="180" y="40" width="160" height="36" rx="18" fill="#2C405A" stroke="#10b981" strokeWidth="2" />
-        <circle cx="200" cy="58" r="4" fill="#10b981" />
-        <motion.circle cx="200" cy="58" r="4" fill="none" stroke="#10b981" strokeWidth="2" animate={{ scale: [1, 2.5], opacity: [1, 0] }} transition={{ duration: 1.5, repeat: Infinity }} />
-        <text x="215" y="62" fill="#10b981" fontSize="12" fontWeight="bold">Renews in 3 days</text>
-      </motion.g>
-    </svg>
+        {/* Layout Navigation Bar (Android style pill) */}
+        <div className="h-10 w-full bg-navy-light/80 backdrop-blur-md absolute bottom-0 z-50 flex justify-center items-center pb-2">
+          <div className="w-1/3 h-1.5 bg-white/20 rounded-full"></div>
+        </div>
+      </div>
+    </div>
   )
 }
 
-const TransactionsViz = () => {
+const SplitsUi = () => {
   return (
-    <svg viewBox="0 0 400 400" className="w-full h-full max-w-lg drop-shadow-2xl">
-      <rect x="60" y="60" width="280" height="300" rx="24" fill="#1C2D42" stroke="#2C405A" strokeWidth="4" />
+    <div className="p-5 h-full flex flex-col gap-4 font-sans pattern-grid-lg text-white">
+      {/* Header */}
+      <div className="text-center pb-4 border-b border-white/5 pt-2">
+        <h2 className="text-white font-bold text-xl mb-1 tracking-tight">Goa Trip 🌴</h2>
+        <p className="text-primary text-sm font-medium">You are owed ₹1,400</p>
+      </div>
 
-      <text x="90" y="110" fill="#80B8FF" fontSize="14" fontWeight="bold">TODAY</text>
-      <line x1="90" y1="125" x2="310" y2="125" stroke="#3D5A80" strokeWidth="2" strokeDasharray="4 4" />
+      {/* Balances List */}
+      <div className="space-y-3 mt-2 flex-1 overflow-y-auto pr-1">
+        <div className="bg-navy-light/60 p-4 rounded-2xl border border-white/5 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-sm">R</div>
+            <div>
+              <div className="text-white text-sm font-medium">Rahul owes you</div>
+              <div className="text-slate-400 text-xs mt-0.5">For "Drinks & Cabs"</div>
+            </div>
+          </div>
+          <div className="text-primary font-bold">₹850</div>
+        </div>
 
-      {/* Chips */}
-      <motion.g initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 0.5, repeat: Infinity, repeatType: 'reverse', repeatDelay: 6 }}>
-        <rect x="90" y="150" width="220" height="40" rx="12" fill="#2C405A" />
-        <circle cx="115" cy="170" r="10" fill="#FFD880" />
-        <text x="140" y="175" fill="white" fontSize="14" fontWeight="500">Food</text>
-        <text x="290" y="175" fill="#FF8080" fontSize="14" fontWeight="bold" textAnchor="end">-₹450</text>
-      </motion.g>
+        <div className="bg-navy-light/60 p-4 rounded-2xl border border-white/5 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-sm">A</div>
+            <div>
+              <div className="text-white text-sm font-medium">Anjali owes you</div>
+              <div className="text-slate-400 text-xs mt-0.5">For "Airbnb"</div>
+            </div>
+          </div>
+          <div className="text-primary font-bold">₹550</div>
+        </div>
 
-      <motion.g initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 1, repeat: Infinity, repeatType: 'reverse', repeatDelay: 6 }}>
-        <rect x="90" y="200" width="220" height="40" rx="12" fill="#2C405A" />
-        <circle cx="115" cy="220" r="10" fill="#A8F8A8" />
-        <text x="140" y="225" fill="white" fontSize="14" fontWeight="500">Transport</text>
-        <text x="290" y="225" fill="#FF8080" fontSize="14" fontWeight="bold" textAnchor="end">-₹120</text>
-      </motion.g>
+        <div className="bg-navy-light/60 p-4 rounded-2xl border border-white/5 flex items-center justify-between opacity-50">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-sm">P</div>
+            <div>
+              <div className="text-white text-sm font-medium line-through">Priya paid you</div>
+              <div className="text-slate-400 text-xs mt-0.5">Settled just now</div>
+            </div>
+          </div>
+          <div className="text-slate-500 font-bold line-through">₹1,200</div>
+        </div>
+      </div>
 
-      <motion.g initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 1.5, repeat: Infinity, repeatType: 'reverse', repeatDelay: 6 }}>
-        <rect x="90" y="250" width="220" height="40" rx="12" fill="#2C405A" />
-        <circle cx="115" cy="270" r="10" fill="#80B8FF" />
-        <text x="140" y="275" fill="white" fontSize="14" fontWeight="500">Entertainment</text>
-        <text x="290" y="275" fill="#FF8080" fontSize="14" fontWeight="bold" textAnchor="end">-₹800</text>
-      </motion.g>
-
-      {/* Running Total */}
-      <motion.g initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 2, repeat: Infinity, repeatType: 'reverse', repeatDelay: 6 }}>
-        <rect x="60" y="310" width="280" height="50" fill="#1C2D42" />
-        <line x1="60" y1="310" x2="340" y2="310" stroke="#3D5A80" strokeWidth="2" />
-        <text x="90" y="340" fill="#80B8FF" fontSize="12" fontWeight="bold">MONTHLY TOTAL</text>
-        <text x="310" y="342" fill="white" fontSize="20" fontWeight="bold" textAnchor="end">₹1,370</text>
-      </motion.g>
-
-    </svg>
+      {/* Floating Action Button area */}
+      <div className="pt-2">
+        <button className="w-full py-3.5 bg-primary rounded-xl text-navy font-bold shadow-[0_0_20px_rgba(16,185,129,0.3)]">
+          Send Reminders
+        </button>
+      </div>
+    </div>
   )
 }
+
+const SubscriptionsUi = () => {
+  return (
+    <div className="p-5 h-full flex flex-col gap-4 font-sans">
+      {/* Circular Progress / Header */}
+      <div className="flex flex-col items-center justify-center pb-6 border-b border-white/5 pt-4">
+        <div className="relative w-32 h-32 flex items-center justify-center">
+          {/* Fake progress ring */}
+          <svg className="w-full h-full transform -rotate-90">
+            <circle cx="64" cy="64" r="56" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="8" />
+            <circle cx="64" cy="64" r="56" fill="none" stroke="#10b981" strokeWidth="8" strokeDasharray="351" strokeDashoffset="140" strokeLinecap="round" />
+          </svg>
+          <div className="absolute text-center">
+            <div className="text-slate-400 text-[10px] font-medium uppercase tracking-wider mb-1">Monthly</div>
+            <div className="text-white font-bold text-2xl tracking-tight">₹2,840</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Subscriptions List */}
+      <div className="space-y-3 mt-2 flex-1 overflow-y-auto pr-1">
+        <div className="bg-navy-light/60 p-4 rounded-2xl border border-primary/30 flex items-center justify-between relative overflow-hidden">
+          <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-[#E50914]/20 text-[#E50914] flex items-center justify-center font-bold text-sm">N</div>
+            <div>
+              <div className="text-white text-sm font-medium">Netflix</div>
+              <div className="text-primary text-[10px] font-bold px-1.5 py-0.5 rounded bg-primary/10 mt-1 inline-block border border-primary/20">Renews in 3 Days</div>
+            </div>
+          </div>
+          <div className="text-white font-bold">₹649</div>
+        </div>
+
+        <div className="bg-navy-light/60 p-4 rounded-2xl border border-white/5 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-[#1DB954]/20 text-[#1DB954] flex items-center justify-center font-bold text-sm">S</div>
+            <div>
+              <div className="text-white text-sm font-medium">Spotify</div>
+              <div className="text-slate-400 text-xs mt-0.5">Renews in 12 Days</div>
+            </div>
+          </div>
+          <div className="text-white font-bold">₹119</div>
+        </div>
+
+        <div className="bg-navy-light/60 p-4 rounded-2xl border border-white/5 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-[#00A8E1]/20 text-[#00A8E1] flex items-center justify-center font-bold text-sm">P</div>
+            <div>
+              <div className="text-white text-sm font-medium">Prime Video</div>
+              <div className="text-slate-400 text-xs mt-0.5">Renews next month</div>
+            </div>
+          </div>
+          <div className="text-white font-bold">₹299</div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const TransactionsUi = () => {
+  return (
+    <div className="p-5 h-full flex flex-col gap-4 font-sans">
+      {/* Header */}
+      <div className="pb-4 border-b border-white/5 pt-2">
+        <h2 className="text-white font-bold text-xl mb-3 tracking-tight">Recent Logs</h2>
+        <div className="flex gap-2">
+          <span className="px-3 py-1.5 text-xs rounded-lg bg-primary/20 text-primary font-medium border border-primary/20">All</span>
+          <span className="px-3 py-1.5 text-xs rounded-lg bg-white/5 text-slate-400 font-medium">Income</span>
+          <span className="px-3 py-1.5 text-xs rounded-lg bg-white/5 text-slate-400 font-medium">Expense</span>
+        </div>
+      </div>
+
+      {/* Transaction List */}
+      <div className="space-y-4 flex-1 overflow-y-auto pr-1">
+        {/* Date Group */}
+        <div>
+          <div className="text-xs text-slate-500 font-medium mb-2 pl-1">Today</div>
+          <div className="space-y-2.5">
+            <div className="bg-navy-light/60 p-3.5 rounded-2xl border border-white/5 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-orange-500/20 flex items-center justify-center text-lg">🍔</div>
+                <div>
+                  <div className="text-white text-sm font-medium">Burger King</div>
+                  <div className="text-slate-400 text-xs mt-0.5">Food & Dining</div>
+                </div>
+              </div>
+              <div className="text-white font-bold">-₹350</div>
+            </div>
+
+            <div className="bg-navy-light/60 p-3.5 rounded-2xl border border-white/5 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center text-lg">🚙</div>
+                <div>
+                  <div className="text-white text-sm font-medium">Uber</div>
+                  <div className="text-slate-400 text-xs mt-0.5">Transport</div>
+                </div>
+              </div>
+              <div className="text-white font-bold">-₹420</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Date Group */}
+        <div>
+          <div className="text-xs text-slate-500 font-medium mb-2 pl-1">Yesterday</div>
+          <div className="space-y-2.5">
+            <div className="bg-navy-light/60 p-3.5 rounded-2xl border border-white/5 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center text-lg">💰</div>
+                <div>
+                  <div className="text-white text-sm font-medium">Salary</div>
+                  <div className="text-slate-400 text-xs mt-0.5">Income</div>
+                </div>
+              </div>
+              <div className="text-primary font-bold">+₹85,000</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Floating Add Button */}
+      <div className="absolute bottom-6 right-5 shadow-2xl">
+        <div className="w-14 h-14 bg-primary rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(16,185,129,0.4)] text-navy">
+          <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        </div>
+      </div>
+    </div>
+  )
+}
+

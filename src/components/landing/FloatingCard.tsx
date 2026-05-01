@@ -47,14 +47,14 @@ const ProcessorBeams = () => {
   ];
 
   return (
-    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[250vw] h-[250vh] md:w-[150vw] md:h-[150vh] lg:w-[120vw] lg:h-[120vh] min-w-[1200px] min-h-[1200px] max-w-[2500px] max-h-[2500px] z-0 pointer-events-none origin-center">
+    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[2400px] h-[2400px] z-0 pointer-events-none origin-center">
       <svg
         width="100%"
         height="100%"
         viewBox="0 0 800 800"
         fill="none"
         preserveAspectRatio="xMidYMid slice"
-        className="[mask-image:radial-gradient(circle_at_center,transparent_0px,transparent_160px,black_250px)]"
+        className="[mask-image:radial-gradient(ellipse_160px_100px_at_center,transparent_0%,transparent_80%,black_100%)] opacity-80"
       >
         {lines.map((d, i) => (
           <g key={i}>
