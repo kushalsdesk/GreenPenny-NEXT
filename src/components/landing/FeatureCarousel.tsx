@@ -37,6 +37,22 @@ export default function FeatureCarousel() {
     <section id="features" ref={containerRef} className="relative w-full bg-navy pb-[20vh]">
       <div className="pt-32 pb-16 px-6 max-w-7xl mx-auto text-center">
         <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">Everything you need, <br className="hidden md:block" /><span className="text-primary">nothing you don't.</span></h2>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1 }}
+        >
+          <h3 className="text-2xl md:text-4xl font-bold text-white tracking-tight leading-[1.2] mb-4 max-w-3xl mx-auto">
+            Your money, your crew, your subscriptions. <br className="hidden md:block" />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-300">Finally, all in one place.</span>
+          </h3>
+          <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed mb-8">
+            Split bills without the awkward reminders. Track every renewal before it hits. Log your spends in seconds — no bank connection ever required.
+          </p>
+
+        </motion.div>
       </div>
 
       <div className="max-w-7xl mx-auto px-6 relative flex items-start gap-12 mt-12">

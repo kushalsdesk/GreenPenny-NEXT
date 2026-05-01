@@ -1,7 +1,7 @@
 export default function FinanceNews() {
   return (
-    <section className="py-24 px-6 relative flex justify-center">
-      <div className="w-full max-w-5xl rounded-full bg-white/5 border border-white/10 backdrop-blur-md overflow-hidden py-4 px-6 flex items-center shadow-2xl">
+    <section className="py-24  relative flex ">
+      <div className="w-full bg-white/5 border border-white/10 backdrop-blur-md overflow-hidden py-4 px-6 flex items-center shadow-2xl">
         <div className="flex items-center gap-12 whitespace-nowrap animate-[scroll_30s_linear_infinite]">
           {/* We duplicate the content to make the marquee seamless */}
           {[...Array(2)].map((_, idx) => (
