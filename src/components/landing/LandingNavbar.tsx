@@ -1,15 +1,14 @@
 "use client";
 
 import { useRouter } from 'next/navigation';
-import { useAuthStore } from '../../stores/authStore';
+import { useAuthStore } from '@/src/stores/authStore';
 
 export default function LandingNavbar() {
   const router = useRouter();
-  const setToken = useAuthStore((state) => state.setToken);
+  const setShowLogin = useAuthStore((state) => state.setShowLogin);
 
   const handleSignIn = () => {
-    setToken('mock-jwt-token'); // Simple mock auth for now
-    router.push('/dashboard');
+    setShowLogin(true);
   };
 
   return (
