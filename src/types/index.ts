@@ -1,17 +1,9 @@
-// ─────────────────────────────────────────────────────────────────────────────
-// API Response Envelope
-// Every successful response from the backend is wrapped in this shape.
-// ─────────────────────────────────────────────────────────────────────────────
+// src/types/index.ts
 
 export interface ApiResponse<T> {
   data: T;
   timestamp: string;
 }
-
-// ─────────────────────────────────────────────────────────────────────────────
-// API Error Shape
-// Every failed response from the backend follows this shape.
-// ─────────────────────────────────────────────────────────────────────────────
 
 export interface ApiError {
   statusCode: number;
@@ -24,9 +16,7 @@ export interface ApiError {
   path: string;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Enums — mirrors backend pgEnum definitions exactly
-// ─────────────────────────────────────────────────────────────────────────────
+// ─── Enums ───────────────────────────────────────────────────────────────────
 
 export type Currency = 'USD' | 'EUR' | 'GBP' | 'JPY';
 export type DateFormat = 'MM/DD/YYYY' | 'DD/MM/YYYY' | 'YYYY-MM-DD';
@@ -45,10 +35,7 @@ export type TransactionCategory =
   | 'Health'
   | 'Other';
 
-// ─────────────────────────────────────────────────────────────────────────────
-// User
-// Matches: GET /users/me → ApiResponse<User>
-// ─────────────────────────────────────────────────────────────────────────────
+// ─── User ────────────────────────────────────────────────────────────────────
 
 export interface User {
   id: string;
@@ -67,11 +54,7 @@ export interface User {
   updatedAt: string;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Account
-// Matches: GET /accounts → ApiResponse<Account[]>
-//          GET /accounts/:id → ApiResponse<Account>
-// ─────────────────────────────────────────────────────────────────────────────
+// ─── Account ─────────────────────────────────────────────────────────────────
 
 export interface Account {
   id: string;
@@ -79,17 +62,13 @@ export interface Account {
   bankName: string;
   accountType: AccountType;
   accountNumberMasked: string;
-  balance: string;           // stored as decimal string from Postgres — parse when displaying
+  balance: string; // decimal string from Postgres — use parseFloat() to display
   nickname: string | null;
   createdAt: string;
   updatedAt: string;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Transaction
-// Matches: GET /transactions → ApiResponse<PaginatedTransactions>
-//          GET /transactions/:id → ApiResponse<Transaction>
-// ─────────────────────────────────────────────────────────────────────────────
+// ─── Transaction ─────────────────────────────────────────────────────────────
 
 export interface Transaction {
   id: string;
@@ -97,13 +76,12 @@ export interface Transaction {
   description: string;
   category: TransactionCategory;
   type: TransactionType;
-  amount: string;            // stored as decimal string from Postgres — parse when displaying
-  date: string;              // ISO date string YYYY-MM-DD
+  amount: string; // decimal string from Postgres — use parseFloat() to display
+  date: string;   // YYYY-MM-DD
   createdAt: string;
   updatedAt: string;
 }
 
-// Pagination meta — always present on paginated endpoints
 export interface PaginationMeta {
   total: number;
   page: number;
@@ -116,9 +94,7 @@ export interface PaginatedTransactions {
   meta: PaginationMeta;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Transaction filters — mirrors FilterTransactionsDto on the backend
-// ─────────────────────────────────────────────────────────────────────────────
+// ─── Transaction Filters ─────────────────────────────────────────────────────
 
 export type DateRangeFilter = 'all' | '7days' | '30days' | '90days' | 'year';
 export type TransactionTypeFilter = 'all' | 'income' | 'expense';
@@ -134,10 +110,7 @@ export interface TransactionFilters {
   limit: number;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Insights
-// Matches: GET /insights → ApiResponse<InsightsDashboard>
-// ─────────────────────────────────────────────────────────────────────────────
+// ─── Insights ────────────────────────────────────────────────────────────────
 
 export type HealthStatus = 'Poor' | 'Fair' | 'Good' | 'Excellent';
 
@@ -161,7 +134,7 @@ export interface CategoryBreakdown {
 }
 
 export interface TrendPoint {
-  month: string;       // short label e.g. "Jan"
+  month: string;
   year: number;
   monthNum: number;
   income: number;
@@ -176,9 +149,7 @@ export interface InsightsDashboard {
   trend: TrendPoint[];
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// DTOs — shapes the frontend sends TO the backend
-// ─────────────────────────────────────────────────────────────────────────────
+// ─── DTOs ────────────────────────────────────────────────────────────────────
 
 export interface UpdateProfileDto {
   name?: string;

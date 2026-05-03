@@ -1,3 +1,5 @@
+// src/mocks/mockdata.ts
+
 import type {
   ApiResponse,
   User,
@@ -7,25 +9,13 @@ import type {
   InsightsDashboard,
   CategoryBreakdown,
   TrendPoint,
-} from '../types';
+} from '@/src/types';
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Helper — wraps any mock data in the API response envelope
-// This mimics exactly what the backend sends. When you swap mock for real
-// API calls, the envelope is already there — components don't change.
-// ─────────────────────────────────────────────────────────────────────────────
-
-export function mockResponse<T>(data: T): ApiResponse<T> {
-  return {
-    data,
-    timestamp: new Date().toISOString(),
-  };
+function mockResponse<T>(data: T): ApiResponse<T> {
+  return { data, timestamp: new Date().toISOString() };
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Mock User
-// Source: GET /users/me
-// ─────────────────────────────────────────────────────────────────────────────
+// ─── Mock User ───────────────────────────────────────────────────────────────
 
 export const MOCK_USER: User = {
   id: '10714413-5eb9-4c4f-bb58-c509ada847be',
@@ -35,7 +25,7 @@ export const MOCK_USER: User = {
   currency: 'USD',
   dateFormat: 'MM/DD/YYYY',
   firstDayOfWeek: 'Sunday',
-  theme: 'dark', // Using dark theme as requested
+  theme: 'dark',
   emailNotifications: true,
   weeklyInsights: true,
   pushNotifications: false,
@@ -44,12 +34,7 @@ export const MOCK_USER: User = {
   updatedAt: '2026-04-26T05:28:15.669287Z',
 };
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Mock Accounts
-// Source: GET /accounts
-// Note: balance is a decimal string — always parse with parseFloat() to display
-// Note: accountNumberMasked — backend never stores or returns full account number
-// ─────────────────────────────────────────────────────────────────────────────
+// ─── Mock Accounts ───────────────────────────────────────────────────────────
 
 export const MOCK_ACCOUNTS: Account[] = [
   {
@@ -76,12 +61,7 @@ export const MOCK_ACCOUNTS: Account[] = [
   },
 ];
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Mock Transactions
-// Source: GET /transactions?page=1&limit=10
-// Note: amount is a decimal string — always parse with parseFloat() to display
-// Note: date is YYYY-MM-DD — backend stores as Postgres date type
-// ─────────────────────────────────────────────────────────────────────────────
+// ─── Mock Transactions ───────────────────────────────────────────────────────
 
 export const MOCK_TRANSACTIONS: Transaction[] = [
   {
@@ -306,15 +286,11 @@ export const MOCK_TRANSACTIONS: Transaction[] = [
   },
 ];
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Mock Paginated Transactions
-// Source: GET /transactions?page=1&limit=10
-// This is the exact shape PaginatedTransactions endpoint returns
-// ─────────────────────────────────────────────────────────────────────────────
+// ─── Paginator ───────────────────────────────────────────────────────────────
 
 export function getMockPaginatedTransactions(
-  page: number = 1,
-  limit: number = 10,
+  page = 1,
+  limit = 10,
   filters?: {
     accountId?: string;
     type?: string;
@@ -345,19 +321,11 @@ export function getMockPaginatedTransactions(
 
   return {
     data,
-    meta: {
-      total,
-      page,
-      limit,
-      totalPages: Math.ceil(total / limit),
-    },
+    meta: { total, page, limit, totalPages: Math.ceil(total / limit) },
   };
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Mock Insights Dashboard
-// Source: GET /insights
-// ─────────────────────────────────────────────────────────────────────────────
+// ─── Mock Insights ───────────────────────────────────────────────────────────
 
 const MOCK_SPENDING_BREAKDOWN: CategoryBreakdown[] = [
   { category: 'Food', totalSpent: 284.15, percentage: 32, transactionCount: 2 },
@@ -372,17 +340,14 @@ const MOCK_SPENDING_BREAKDOWN: CategoryBreakdown[] = [
 const MOCK_TREND: TrendPoint[] = [
   { month: 'Nov', year: 2025, monthNum: 11, income: 4100, expenses: 2600, netSavings: 1500 },
   { month: 'Dec', year: 2025, monthNum: 12, income: 5450, expenses: 3100, netSavings: 2350 },
-  { month: 'Jan', year: 2026, monthNum: 1,  income: 4200, expenses: 2400, netSavings: 1800 },
-  { month: 'Feb', year: 2026, monthNum: 2,  income: 4200, expenses: 2750, netSavings: 1450 },
-  { month: 'Mar', year: 2026, monthNum: 3,  income: 5050, expenses: 2900, netSavings: 2150 },
-  { month: 'Apr', year: 2026, monthNum: 4,  income: 5095, expenses: 987.12, netSavings: 4107.88 },
+  { month: 'Jan', year: 2026, monthNum: 1, income: 4200, expenses: 2400, netSavings: 1800 },
+  { month: 'Feb', year: 2026, monthNum: 2, income: 4200, expenses: 2750, netSavings: 1450 },
+  { month: 'Mar', year: 2026, monthNum: 3, income: 5050, expenses: 2900, netSavings: 2150 },
+  { month: 'Apr', year: 2026, monthNum: 4, income: 5095, expenses: 987, netSavings: 4108 },
 ];
 
-export const MOCK_INSIGHTS_DASHBOARD: InsightsDashboard = {
-  health: {
-    score: 78,
-    status: 'Good',
-  },
+const MOCK_INSIGHTS_DASHBOARD: InsightsDashboard = {
+  health: { score: 78, status: 'Good' },
   currentMonth: {
     income: 5095.30,
     expenses: 987.12,
@@ -393,12 +358,7 @@ export const MOCK_INSIGHTS_DASHBOARD: InsightsDashboard = {
   trend: MOCK_TREND,
 };
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Mock Insights scoped to a single account
-// Source: GET /insights?accountId=acc-uuid-0001
-// ─────────────────────────────────────────────────────────────────────────────
-
-export const MOCK_INSIGHTS_BY_ACCOUNT: Record<string, InsightsDashboard> = {
+const MOCK_INSIGHTS_BY_ACCOUNT: Record<string, InsightsDashboard> = {
   'acc-uuid-0001': {
     health: { score: 72, status: 'Good' },
     currentMonth: {
@@ -407,9 +367,7 @@ export const MOCK_INSIGHTS_BY_ACCOUNT: Record<string, InsightsDashboard> = {
       netSavings: 4212.87,
       savingsRate: 83,
     },
-    spendingBreakdown: MOCK_SPENDING_BREAKDOWN.filter(
-      (b) => b.category !== 'Health',
-    ),
+    spendingBreakdown: MOCK_SPENDING_BREAKDOWN.filter((b) => b.category !== 'Health'),
     trend: MOCK_TREND,
   },
   'acc-uuid-0002': {
@@ -427,25 +385,24 @@ export const MOCK_INSIGHTS_BY_ACCOUNT: Record<string, InsightsDashboard> = {
   },
 };
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Mock service functions
-// These are what components actually call — same signature the real apiClient
-// will use. Swap the body from mock data to a fetch call and you're done.
-// ─────────────────────────────────────────────────────────────────────────────
+// ─── Mock API ─────────────────────────────────────────────────────────────────
+// Same function signatures as the real apiClient — components never change.
+
+const delay = (ms = 600) => new Promise((r) => setTimeout(r, ms));
 
 export const mockApi = {
-  getUser: async (): Promise<ApiResponse<User>> => {
-    await new Promise(resolve => setTimeout(resolve, 800)); // Simulate delay
+  getUser: async () => {
+    await delay();
     return mockResponse(MOCK_USER);
   },
 
-  getAccounts: async (): Promise<ApiResponse<Account[]>> => {
-    await new Promise(resolve => setTimeout(resolve, 800));
+  getAccounts: async () => {
+    await delay();
     return mockResponse(MOCK_ACCOUNTS);
   },
 
-  getAccount: async (id: string): Promise<ApiResponse<Account>> => {
-    await new Promise(resolve => setTimeout(resolve, 600));
+  getAccount: async (id: string) => {
+    await delay(400);
     return mockResponse(MOCK_ACCOUNTS.find((a) => a.id === id)!);
   },
 
@@ -453,13 +410,19 @@ export const mockApi = {
     page = 1,
     limit = 10,
     filters?: Parameters<typeof getMockPaginatedTransactions>[2],
-  ): Promise<ApiResponse<PaginatedTransactions>> => {
-    await new Promise(resolve => setTimeout(resolve, 800));
+  ) => {
+    await delay();
     return mockResponse(getMockPaginatedTransactions(page, limit, filters));
   },
 
-  getInsights: async (accountId?: string): Promise<ApiResponse<InsightsDashboard>> => {
-    await new Promise(resolve => setTimeout(resolve, 800));
+  getTransaction: async (id: string) => {
+    await delay(400);
+    const tx = MOCK_TRANSACTIONS.find((t) => t.id === id)!;
+    return mockResponse(tx);
+  },
+
+  getInsights: async (accountId?: string) => {
+    await delay();
     if (accountId && MOCK_INSIGHTS_BY_ACCOUNT[accountId]) {
       return mockResponse(MOCK_INSIGHTS_BY_ACCOUNT[accountId]);
     }
