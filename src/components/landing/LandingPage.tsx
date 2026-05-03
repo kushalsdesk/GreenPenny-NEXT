@@ -1,33 +1,24 @@
+// src/components/landing/LandingPage.tsx
+
 "use client";
-import { useEffect, Suspense } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import LandingNavbar from './LandingNavbar';
-import Hero from './sections/Hero';
-import Why from './sections/Why';
-import FeatureCarousel from './FeatureCarousel';
-import Testimonials from './sections/Testimonials';
-import FinanceNews from './sections/FinanceNews';
-import Footer from './sections/Footer';
-import AuthComponent from '../auth/AuthComponent';
-import { useAuthStore } from '@/src/stores/authStore';
+import { useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
+import LandingNavbar from "./LandingNavbar";
+import Hero from "./sections/Hero";
+import Why from "./sections/Why";
+import FeatureCarousel from "./FeatureCarousel";
+import Testimonials from "./sections/Testimonials";
+import FinanceNews from "./sections/FinanceNews";
+import Footer from "./sections/Footer";
+import AuthComponent from "../auth/AuthComponent";
+import { useAuthStore } from "@/src/stores/authStore";
 
 function LandingPageContent() {
-  const router = useRouter();
   const searchParams = useSearchParams();
-  const { checkSession, isAuthenticated, setShowLogin } = useAuthStore();
+  const { setShowLogin } = useAuthStore();
 
   useEffect(() => {
-    checkSession();
-  }, [checkSession]);
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      router.push('/dashboard');
-    }
-  }, [isAuthenticated, router]);
-
-  useEffect(() => {
-    if (searchParams.get('auth') === 'failed' || searchParams.get('login') === 'true') {
+    if (searchParams.get("auth") === "failed" || searchParams.get("login") === "true") {
       setShowLogin(true);
     }
   }, [searchParams, setShowLogin]);
@@ -35,7 +26,6 @@ function LandingPageContent() {
   return (
     <>
       <LandingNavbar />
-
       <main>
         <Hero />
         <FinanceNews />
@@ -43,7 +33,6 @@ function LandingPageContent() {
         <Why />
         <Testimonials />
       </main>
-
       <Footer />
       <AuthComponent />
     </>
