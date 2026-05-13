@@ -6,6 +6,7 @@ interface User {
   id: string;
   email: string;
   name: string;
+  avatarUrl?: string;
 }
 
 interface AuthState {
@@ -32,7 +33,6 @@ interface AuthState {
 export const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
-      // Initial state
       user: null,
       isAuthenticated: false,
       isLoading: false,
@@ -64,9 +64,7 @@ export const useAuthStore = create<AuthState>()(
             email,
             password,
             options: {
-              data: {
-                name: name,
-              },
+              data: { name },
               emailRedirectTo: process.env.NEXT_PUBLIC_SITE_URL
                 ? `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`
                 : `${window.location.origin}/auth/callback`,
@@ -85,7 +83,6 @@ export const useAuthStore = create<AuthState>()(
               throw new Error(errorMsg);
             }
 
-            // Signup successful - set verification state
             set({
               isLoading: false,
               error: null,
@@ -123,6 +120,7 @@ export const useAuthStore = create<AuthState>()(
               email: data.user.email!,
               name:
                 data.user.user_metadata?.name || data.user.email!.split("@")[0],
+              avatarUrl: data.user.user_metadata?.avatar_url ?? undefined,
             };
 
             set({
@@ -147,25 +145,19 @@ export const useAuthStore = create<AuthState>()(
         try {
           const supabase = createClient();
 
-          // Use environment variable for production, fallback to window.location for development
           const redirectTo = process.env.NEXT_PUBLIC_SITE_URL
             ? `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`
             : `${window.location.origin}/auth/callback`;
 
           const { error } = await supabase.auth.signInWithOAuth({
             provider: "google",
-            options: {
-              redirectTo,
-            },
+            options: { redirectTo },
           });
 
           if (error) {
             set({ isLoading: false, error: error.message });
             throw new Error(error.message);
           }
-
-          // The redirect will happen automatically
-          // No need to set loading to false as page will redirect
         } catch (error: unknown) {
           const message =
             error instanceof Error ? error.message : "Google login failed";
@@ -195,6 +187,7 @@ export const useAuthStore = create<AuthState>()(
               name:
                 session.user.user_metadata?.name ||
                 session.user.email!.split("@")[0],
+              avatarUrl: session.user.user_metadata?.avatar_url ?? undefined,
             };
 
             set({
