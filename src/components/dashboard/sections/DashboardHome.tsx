@@ -68,7 +68,7 @@ export default function DashboardHome() {
 
   const totalBalance = accounts.reduce(
     (acc, curr) => acc + parseFloat(curr.balance),
-    0
+    0,
   );
 
   return (
@@ -95,7 +95,9 @@ export default function DashboardHome() {
             {formatCurrency(totalBalance)}
           </p>
           <div className="flex items-center justify-between text-xs font-mono">
-            <span className="text-slate-400">{accounts.length} Accounts Connected</span>
+            <span className="text-slate-400">
+              {accounts.length} Accounts Connected
+            </span>
             <div className="flex items-center gap-1 text-primary">
               <span>+2.4% this month</span>
               <ArrowUpRight className="h-4 w-4" />
@@ -194,7 +196,11 @@ export default function DashboardHome() {
                     <stop offset="100%" stopColor="#f97316" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" vertical={false} />
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  stroke="rgba(255,255,255,0.04)"
+                  vertical={false}
+                />
                 <XAxis
                   dataKey="month"
                   tick={{ fill: "#64748b", fontSize: 11 }}
@@ -232,7 +238,12 @@ export default function DashboardHome() {
                   stroke="#10B981"
                   strokeWidth={2}
                   fill="url(#incomeGrad)"
-                  activeDot={{ r: 6, fill: "#10B981", stroke: "#0A0E17", strokeWidth: 2 }}
+                  activeDot={{
+                    r: 6,
+                    fill: "#10B981",
+                    stroke: "#0A0E17",
+                    strokeWidth: 2,
+                  }}
                 />
                 <Area
                   type="monotone"
@@ -240,7 +251,12 @@ export default function DashboardHome() {
                   stroke="#f97316"
                   strokeWidth={2}
                   fill="url(#expenseGrad)"
-                  activeDot={{ r: 6, fill: "#f97316", stroke: "#0A0E17", strokeWidth: 2 }}
+                  activeDot={{
+                    r: 6,
+                    fill: "#f97316",
+                    stroke: "#0A0E17",
+                    strokeWidth: 2,
+                  }}
                 />
               </AreaChart>
             </ResponsiveContainer>
@@ -276,10 +292,11 @@ export default function DashboardHome() {
                     className="flex items-center gap-4 p-3 hover:bg-white/5 rounded-xl transition-colors"
                   >
                     <div
-                      className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isIncome
-                        ? "bg-primary/10 text-primary"
-                        : "bg-orange-500/10 text-orange-400"
-                        }`}
+                      className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
+                        isIncome
+                          ? "bg-primary/10 text-primary"
+                          : "bg-orange-500/10 text-orange-400"
+                      }`}
                     >
                       {isIncome ? (
                         <ArrowDownLeft className="w-5 h-5" />
@@ -300,8 +317,9 @@ export default function DashboardHome() {
                       </p>
                     </div>
                     <div
-                      className={`font-mono text-sm shrink-0 ${isIncome ? "text-primary" : "text-slate-300"
-                        }`}
+                      className={`font-mono text-sm shrink-0 ${
+                        isIncome ? "text-primary" : "text-slate-300"
+                      }`}
                     >
                       {isIncome ? "+" : "-"}
                       {formatCurrency(parseFloat(tx.amount))}

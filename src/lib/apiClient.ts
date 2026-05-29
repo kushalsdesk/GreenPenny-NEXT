@@ -32,6 +32,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:8080/api';
 async function getSessionToken(): Promise<string | undefined> {
   const supabase = createClient();
   const { data } = await supabase.auth.getSession();
+  console.log('TOKEN:', data.session?.access_token);
   return data.session?.access_token;
 }
 
